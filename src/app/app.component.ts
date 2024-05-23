@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { GameComponentRegistry } from './decorators/dynamic-component';
 import { ViewComponent } from './view/view.component';
 import { ViewHandlerService } from './services/view-handler.service';
-import { IComponent } from './interfaces/component.interface';
+import { IGameComponent } from './interfaces/component.interface';
 import { ViewComponentsModule } from './view/view-components.module';
 import { RageService } from './services/rage.service';
 
@@ -40,14 +40,10 @@ export class AppComponent implements AfterViewInit {
    */
   ngAfterViewInit(): void {
     this.rage.sendClient('onBrowserLoaded');
-
-    setTimeout(() => {
-      this.cdr.detectChanges();
-    }, 15000);
   }
 
   /**
-   * Gets all the components registered in the GameComponentRegistry map.
+   * Gets all components registered in GameComponentRegistry.
    * @returns all component names
    */
   getAllComponentNames() {
@@ -70,7 +66,11 @@ export class AppComponent implements AfterViewInit {
     !this.viewHandler.isComponentLoaded(component) ? this.viewHandler.renderComponent(component) : this.viewHandler.unrenderComponent(component);
   }
 
-  get gameComponents(): IComponent[] {
+  /**
+   * Gets the list of components rendered in the view.
+   * @returns IGameComponent array
+   */
+  get gameComponents(): IGameComponent[] {
     return this.viewHandler.getComponentsList();
   }
 }

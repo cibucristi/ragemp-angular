@@ -1,12 +1,12 @@
 import { ChangeDetectorRef, Injectable, WritableSignal, signal } from '@angular/core';
-import { IComponent } from '../interfaces/component.interface';
+import { IGameComponent } from '../interfaces/component.interface';
 import { RageService } from './rage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ViewHandlerService {
-  private componentsList: WritableSignal<IComponent[]> = signal([]);
+  private componentsList: WritableSignal<IGameComponent[]> = signal([]);
 
   constructor(
     private readonly rage: RageService,
@@ -23,7 +23,7 @@ export class ViewHandlerService {
   public renderComponent(component: string) {
     const component_str = component.toString();
     const index = this.componentsList().findIndex(
-      (componentEntry: IComponent) =>
+      (componentEntry: IGameComponent) =>
         componentEntry.identifier == component.toString()
     );
     if (index != -1) return;
@@ -38,7 +38,7 @@ export class ViewHandlerService {
    */
   public unrenderComponent(component: string) {
     const index = this.componentsList().findIndex(
-      (componentEntry: IComponent) =>
+      (componentEntry: IGameComponent) =>
         componentEntry.identifier == component.toString()
     );
     if (index == -1) return;
@@ -49,7 +49,7 @@ export class ViewHandlerService {
 
   /**
    * Gets the component list rendered in the view.
-   * @returns IComponent array
+   * @returns IGameComponent array
    */
   public getComponentsList(): any {
     return this.componentsList()
@@ -61,6 +61,6 @@ export class ViewHandlerService {
    * @returns boolean
    */
   public isComponentLoaded(component: string): boolean {
-    return this.componentsList().findIndex((componentEntry: IComponent) => componentEntry.identifier == component.toString()) > -1;
+    return this.componentsList().findIndex((componentEntry: IGameComponent) => componentEntry.identifier == component.toString()) > -1;
   }
 }
