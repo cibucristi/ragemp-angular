@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>ragemp-angular</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- github.com/cibucristi -->
+</head>
+<body>
+  <app-root></app-root>
+
+  <script>
+    /**
+     * RAGE:MP Simulator.
+     * Improves DX.
+    */
+    if (window.mp) {
+      window.isRage = true;
+
+      /**
+       * This is mandatory! Do not delete!
+       * This is a connection bridge between UI and server-side, without this the sendServer from rage service wouldn't work.
+      **/
+      window.mp.events.callRemote = (name, ...args) => {
+        mp.trigger('SEND_TO_SERVER', name, ...args);
+      };
+      
+    } else {
+      window.isRage = false;
+      window.mp = {
+        trigger: () => {
+          console.log('mp.trigger', arguments);
+        }
+      }
+
+      console.log('[ANGULAR]: Simulating RAGE:MP environment...')
+    }
+  </script>
+</body>
+</html>
