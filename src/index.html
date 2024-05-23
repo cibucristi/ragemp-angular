@@ -25,7 +25,7 @@
        * This is a connection bridge between UI and server-side, without this the sendServer from rage service wouldn't work.
       **/
       window.mp.events.callRemote = (name, ...args) => {
-        mp.trigger('SEND_TO_SERVER', name, ...args);
+        mp.trigger('CALL_SERVER', name, ...args);
       };
       
     } else {

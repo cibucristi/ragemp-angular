@@ -1,5 +1,5 @@
 # RAGE:MP Angular
-This repository is a basic boilerplate for getting started with Angular v17 in RAGE Multiplayer. It contains several helpful features and was generated with the Angular CLI. The project was setup using SCSS as stylesheet format, it is for both browser and in-game based development workflow.
+This repository is a basic boilerplate for getting started with **Angular v17** in [RAGE Multiplayer](https://rage.mp/). It contains several helpful features and was generated with the Angular CLI. The project was setup using SCSS as stylesheet format, it is for both browser and in-game based development workflow.
 
 
 ![RAGEMP Angular](https://i.imgur.com/YeidalT.png "RAGEMP Angular")
@@ -13,11 +13,9 @@ Clone the repository and use `npm install`, after installing the packages use:
 ### Installation
 1. Put this event in client-side, this is a middleman event for making the connection between UI - Server side.
 
-Example:
-
 ```js
-mp.events.add('SEND_TO_SERVER', (eventName, ...args) => {
-        mp.events.callRemote(eventName, ...args)
+mp.events.add('CALL_SERVER', (eventName, ...args) => {
+    mp.events.callRemote(eventName, ...args)
 });
 ```
 
