@@ -1,5 +1,5 @@
 import { Component, ComponentRef, Input, OnChanges, OnDestroy, OnInit, ViewContainerRef } from '@angular/core';
-import { GameComponentRegistry, ComponentRuntimeInstances } from '../decorators/dynamic-component';
+import { GameComponentsRegistry } from '../decorators/dynamic-component';
 import { RageService } from '../services/rage.service';
 import { CommonModule } from '@angular/common';
 
@@ -23,20 +23,11 @@ export class ViewComponent implements OnInit, OnChanges, OnDestroy {
   public component: string = ''; 
 
   ngOnInit() {
-    const component = GameComponentRegistry.get(this.component.toString());
+    const component = GameComponentsRegistry.get(this.component.toString());
     if (!component) return;
 
     // Creates the component into the view.
     this.dynamicRef = this.viewContainerRef.createComponent(component);
-
-    ComponentRuntimeInstances.set(
-      this.component.toString(),
-      this.dynamicRef.instance
-    );
-
-    // Notify the server and client that the component has been succesfully loaded in the view.
-    this.game.sendServer('GAME_COMPONENT_LOAD', this.component),
-    this.game.sendClient('GAME_COMPONENT_LOAD', this.component);
     setTimeout(() => {
       this.dynamicRef.changeDetectorRef.detectChanges();
     }, 20);
@@ -50,11 +41,7 @@ export class ViewComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnDestroy() {
-    if (GameComponentRegistry.get(this.component)) {
-      // Notify the server and client that the component was unloaded from the view.
-      this.game.sendClient('GAME_COMPONENT_UNLOAD', this.component);
-      this.game.sendServer('GAME_COMPONENT_UNLOAD', this.component);
-      ComponentRuntimeInstances.delete(this.component);
+    if (GameComponentsRegistry.get(this.component)) {
       this.dynamicRef.destroy();
       this.viewContainerRef.clear();
     }

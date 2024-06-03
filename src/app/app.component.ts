@@ -1,13 +1,12 @@
-import { AfterViewInit, ChangeDetectorRef, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { environment } from '../environments/environment';
 import { FormsModule } from '@angular/forms';
-import { GameComponentRegistry } from './decorators/dynamic-component';
+import { GameComponentsRegistry } from './decorators/dynamic-component';
 import { ViewComponent } from './view/view.component';
 import { ViewHandlerService } from './services/view-handler.service';
 import { IGameComponent } from './interfaces/component.interface';
 import { ViewComponentsModule } from './view/view-components.module';
-import { RageService } from './services/rage.service';
 
 @Component({
   selector: 'app-root',
@@ -30,16 +29,15 @@ export class AppComponent {
 
   constructor(
     /* Do not delete these! These are mandatory for the UI to work. */
-    private readonly viewHandler: ViewHandlerService,
-    private readonly rage: RageService
+    private readonly viewHandler: ViewHandlerService
   ) { }
 
   /**
-   * Gets all components registered in GameComponentRegistry.
+   * Gets all components registered in GameComponentsRegistry.
    * @returns all component names
    */
   getAllComponentNames() {
-    return [...GameComponentRegistry.keys()]
+    return [...GameComponentsRegistry.keys()]
   }
 
   /**
@@ -54,7 +52,7 @@ export class AppComponent {
    * This method is called when a component name is pressed in the Development Menu.
    * @param component component name
    */
-  onComponentSelected(component: string) {
+  renderComponentSelected(component: string) {
     !this.viewHandler.isComponentLoaded(component) ? this.viewHandler.renderComponent(component) : this.viewHandler.unrenderComponent(component);
   }
 

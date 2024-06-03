@@ -5,7 +5,7 @@
                 <div class="game-dev-menu-frame">
                     @for (component_name of getAllComponentNames(); track $index) {
                         <ng-container>
-                            <span class="game-dev-menu-content" (click)="this.onComponentSelected(component_name)">
+                            <span class="game-dev-menu-content" (click)="this.renderComponentSelected(component_name)">
                                 {{ component_name }}
                             </span>
                         </ng-container>
