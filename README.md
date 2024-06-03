@@ -11,7 +11,8 @@ Clone the repository and use `npm install`, after installing the packages use:
 - `ng build` to build the application.
 
 ### Installation
-1. Put this event in client-side, this is a middleman event for making the connection between UI - Server side.
+1. Create the browser to the dev server of angular or the build files.
+2. Put this event in client-side, this is a middleman event for making the connection between UI - Server side.
 
 ```js
 mp.events.add('CALL_SERVER', (eventName, ...args) => {
@@ -19,4 +20,4 @@ mp.events.add('CALL_SERVER', (eventName, ...args) => {
 });
 ```
 
-2. You're all done! If you did everything mentioned up correctly, you should have an RAGE:MP + Angular v17 project running with no problem.
+3. You're all done! If you did everything mentioned up correctly, you should have an RAGE:MP + Angular v17 project running with no problem.
