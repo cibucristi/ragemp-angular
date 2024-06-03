@@ -22,7 +22,7 @@ import { RageService } from './services/rage.service';
   styleUrl: './app.component.scss',
   providers: [ViewHandlerService]
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent {
   title = 'ragemp-angular';
 
   isRAGE: boolean = window.isRage;
@@ -31,16 +31,8 @@ export class AppComponent implements AfterViewInit {
   constructor(
     /* Do not delete these! These are mandatory for the UI to work. */
     private readonly viewHandler: ViewHandlerService,
-    private readonly rage: RageService,
-    private readonly cdr: ChangeDetectorRef
+    private readonly rage: RageService
   ) { }
-
-  /**
-   * Sends a client event telling client that the Angular instance has loaded.
-   */
-  ngAfterViewInit(): void {
-    this.rage.sendClient('onBrowserLoaded');
-  }
 
   /**
    * Gets all components registered in GameComponentRegistry.
